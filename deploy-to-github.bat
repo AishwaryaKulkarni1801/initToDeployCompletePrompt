@@ -9,7 +9,21 @@ echo.
 REM Set default values
 set "USERNAME=AishwaryaKulkarni1801"
 set "REPO_NAME=initToDeployCompletePrompt"
-set "BRANCH_NAME=main"
+
+REM Detect current branch if git exists, otherwise default to main
+if exist .git (
+    for /f "tokens=*" %%i in ('git branch --show-current 2^>nul') do set "CURRENT_BRANCH=%%i"
+    if "!CURRENT_BRANCH!"=="" (
+        for /f "tokens=2" %%i in ('git branch 2^>nul ^| findstr /r "^\*"') do set "CURRENT_BRANCH=%%i"
+    )
+    if not "!CURRENT_BRANCH!"=="" (
+        set "BRANCH_NAME=!CURRENT_BRANCH!"
+    ) else (
+        set "BRANCH_NAME=main"
+    )
+) else (
+    set "BRANCH_NAME=main"
+)
 
 REM Prompt for inputs with defaults
 set /p "input_username=Enter GitHub Username (default: %USERNAME%): "
@@ -190,6 +204,11 @@ if "%IS_FIRST_TIME%"=="false" (
     git push origin %BRANCH_NAME%
     if !errorlevel! neq 0 (
         echo ERROR: Failed to push workflow to GitHub
+        echo Current branch: %BRANCH_NAME%
+        echo Available branches:
+        git branch -a
+        echo.
+        echo Try running: git push origin %BRANCH_NAME%
         pause
         exit /b 1
     )
