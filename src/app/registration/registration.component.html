@@ -1,0 +1,51 @@
+<div class="container">
+  <h2>Registration Form</h2>
+
+  <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+    
+    <!-- Full Name -->
+    <label>Full Name:</label>
+    <input type="text" formControlName="fullName" />
+    <div class="error" *ngIf="submitted && f['fullName'].errors">
+      <small *ngIf="f['fullName'].errors['required']">Full Name is required.</small>
+      <small *ngIf="f['fullName'].errors['minlength']">Minimum 3 characters required.</small>
+    </div>
+
+    <!-- Email -->
+    <label>Email:</label>
+    <input type="email" formControlName="email" />
+    <div class="error" *ngIf="submitted && f['email'].errors">
+      <small *ngIf="f['email'].errors['required']">Email is required.</small>
+      <small *ngIf="f['email'].errors['email']">Enter a valid email.</small>
+    </div>
+
+    <!-- Password -->
+    <label>Password:</label>
+    <input type="password" formControlName="password" />
+    <div class="error" *ngIf="submitted && f['password'].errors">
+      <small *ngIf="f['password'].errors['required']">Password is required.</small>
+      <small *ngIf="f['password'].errors['minlength']">Minimum 6 characters required.</small>
+    </div>
+
+    <!-- Confirm Password -->
+    <label>Confirm Password:</label>
+    <input type="password" formControlName="confirmPassword" />
+    <div class="error" *ngIf="submitted && registrationForm.errors?.['mismatch']">
+      <small>Passwords do not match.</small>
+    </div>
+
+    <!-- Gender -->
+    <label>Gender:</label>
+    <select formControlName="gender">
+      <option value="">Select</option>
+      <option value="female">Female</option>
+      <option value="male">Male</option>
+    </select>
+    <div class="error" *ngIf="submitted && f['gender'].errors">
+      <small *ngIf="f['gender'].errors['required']">Gender is required.</small>
+    </div>
+
+    <!-- Submit -->
+    <button type="submit">Register</button>
+  </form>
+</div>

@@ -1,0 +1,32 @@
+.container {
+  width: 350px;
+  margin: 30px auto;
+  padding: 30px;
+  border-radius: 10px;
+  background: #f9f9f9;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 2px solid black;
+}
+label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+}
+input, select {
+  width: 100%;
+  padding: 8px;
+  margin-top: 5px;
+}
+button {
+  margin-top: 15px;
+  padding: 10px;
+  width: 100%;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+}
+.error small {
+  color: red;
+  font-size: 12px;
+}
